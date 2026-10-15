@@ -1,0 +1,73 @@
+version: '3.8'
+
+services:
+  web:
+    build:
+      context: ../../
+      dockerfile: infrastructure/docker/Dockerfile.web
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+      - VITE_API_BASE_URL=http://localhost:3001
+    depends_on:
+      - api
+    restart: unless-stopped
+
+  api:
+    build:
+      context: ../../
+      dockerfile: infrastructure/docker/Dockerfile.api
+    ports:
+      - "3001:3001"
+    environment:
+      - NODE_ENV=development
+      - PORT=3001
+      - HOST=0.0.0.0
+      - CODE_INTELLIGENCE_URL=http://code-intelligence:8000
+      - DATABASE_URL=postgresql://repopilot:repopilot_secret@postgres:5432/repopilot
+      - REDIS_URL=redis://redis:6379
+      - GEMINI_API_KEY=${GEMINI_API_KEY:-}
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY:-}
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+    depends_on:
+      - postgres
+      - redis
+      - code-intelligence
+    restart: unless-stopped
+
+  code-intelligence:
+    build:
+      context: ../../services/code-intelligence
+      dockerfile: ../../infrastructure/docker/Dockerfile.code-intelligence
+    ports:
+      - "8000:8000"
+    environment:
+      - ENVIRONMENT=development
+      - PORT=8000
+      - HOST=0.0.0.0
+    restart: unless-stopped
+
+  postgres:
+    image: pgvector/pgvector:pg16
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=repopilot
+      - POSTGRES_PASSWORD=repopilot_secret
+      - POSTGRES_DB=repopilot
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+  redis_data:

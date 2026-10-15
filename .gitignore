@@ -1,0 +1,58 @@
+# Node.js
+node_modules/
+build/
+dist/
+coverage/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment & Secrets
+.env*
+!.env.example
+*.pem
+*.key
+*.cert
+
+# Python & FastAPI
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+ENV/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# OS & IDE
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Temporary workspace clones and data
+/tmp/repopilot/
+postgres_data/
+redis_data/

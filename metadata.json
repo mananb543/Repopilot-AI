@@ -1,0 +1,6 @@
+{
+  "name": "RepoPilot AI",
+  "description": "Autonomous software engineering agent and code intelligence platform foundation.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

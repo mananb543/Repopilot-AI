@@ -1,0 +1,47 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "experimentalDecorators": true,
+    "useDefineForClassFields": false,
+    "module": "ESNext",
+    "types": ["vite/client", "node"],
+    "lib": [
+      "ES2022",
+      "DOM",
+      "DOM.Iterable"
+    ],
+    "skipLibCheck": true,
+    "moduleResolution": "bundler",
+    "isolatedModules": true,
+    "moduleDetection": "force",
+    "allowJs": true,
+    "jsx": "react-jsx",
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ],
+      "@repopilot/shared-types": [
+        "./packages/shared-types/src/index.ts"
+      ],
+      "@repopilot/config": [
+        "./packages/config/src/index.ts"
+      ],
+      "@repopilot/api": [
+        "./services/api/src/index.ts"
+      ],
+      "@repopilot/agent-worker": [
+        "./services/agent-worker/src/index.ts"
+      ]
+    },
+    "allowImportingTsExtensions": true,
+    "noEmit": true
+  },
+  "include": [
+    "src",
+    "server.ts",
+    "packages",
+    "services/api",
+    "services/agent-worker",
+    "apps"
+  ]
+}
